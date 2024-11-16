@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbars but keep functionality */
+* {
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+}
+
+/* Webkit browsers like Chrome, Safari */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure the body and html take full height */
+html, body, #root {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Main Color Palette */
+  --oxford-blue: #00142F;
+  --royal-blue: #0022FF;
+  --brandeis-blue: #006FFC;
+  --sky-blue: #00BBF9;
+  --aquamarine: #00F5D4;
+
+  /* Gradient Combinations */
+  --gradient-primary: linear-gradient(135deg, #00142F, #0022FF);
+  --gradient-secondary: linear-gradient(135deg, #006FFC, #00BBF9);
+  --gradient-accent: linear-gradient(135deg, #00BBF9, #00F5D4);
+  
+  /* Transparent Versions for Overlays */
+  --oxford-blue-90: rgba(0, 20, 47, 0.9);
+  --oxford-blue-50: rgba(0, 20, 47, 0.5);
+  --sky-blue-20: rgba(0, 187, 249, 0.2);
+  
+  /* Shadows with Brand Colors */
+  --shadow-sm: 0 2px 4px rgba(0, 34, 255, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 34, 255, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 34, 255, 0.2);
+  --shadow-inner: inset 0 2px 4px rgba(0, 20, 47, 0.05);
+}
