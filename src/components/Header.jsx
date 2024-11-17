@@ -4,7 +4,7 @@ import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/Header
 import LogicGateDrawer from './LogicGateDrawer';
 import '../styles/header.css';
 
-const Header = ({ isDarkMode, setIsDarkMode }) => {
+const Header = ({ addGateNode, isDarkMode, setIsDarkMode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -69,12 +69,14 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
       <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
+        addGateNode={addGateNode}
       />
     </>
   );
 };
 
 Header.propTypes = {
+  addGateNode: PropTypes.func.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
   setIsDarkMode: PropTypes.func.isRequired,
 };

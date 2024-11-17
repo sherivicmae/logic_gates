@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import LogicGatesSection from './LogicGateDrawer/sections/LogicGatesSection';
+import InputComponentsSection from './LogicGateDrawer/sections/InputComponentsSection';
+import OutputComponentsSection from './LogicGateDrawer/sections/OutputComponentsSection';
 import '../styles/drawer.css';
 
-const LogicGateDrawer = ({ isOpen, onClose }) => {
+const LogicGateDrawer = ({ isOpen, onClose, addGateNode }) => {
   // State to track which sections are expanded
   const [expandedSections, setExpandedSections] = useState({
     logicGates: true,
@@ -16,6 +19,16 @@ const LogicGateDrawer = ({ isOpen, onClose }) => {
       ...prev,
       [sectionName]: !prev[sectionName]
     }));
+  };
+
+  const handleGateClick = (gateType) => {
+    // Check if it's an input/output component
+    const isInputOutput = ['switch', 'button', 'ledOutput', 'rgbLedOutput'].includes(gateType);
+    
+    // Only append 'Node' for logic gates
+    const nodeType = isInputOutput ? gateType : `${gateType}Node`;
+    addGateNode(nodeType);
+    onClose();
   };
 
   return (
@@ -35,150 +48,21 @@ const LogicGateDrawer = ({ isOpen, onClose }) => {
           <h2 className="drawer-title">Circuit Elements</h2>
         </div>
 
-        {/* Logic Gates Section */}
-        <div className="drawer-section">
-          <button 
-            className="section-title-button"
-            onClick={() => toggleSection('logicGates')}
-            type="button"
-          >
-            <h3 className="section-title">Logic Gates</h3>
-            <span className={`section-arrow ${expandedSections.logicGates ? 'expanded' : ''}`}>
-              ▼
-            </span>
-          </button>
-          
-          <div className={`gates-grid ${expandedSections.logicGates ? 'expanded' : 'collapsed'}`}>
-            {/* AND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add AND gate SVG or image here */}
-              </div>
-              <span className="gate-label">AND Gate</span>
-            </div>
-
-            {/* NAND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add NAND gate SVG or image here */}
-              </div>
-              <span className="gate-label">NAND Gate</span>
-            </div>
-
-            {/* Rest of your gates... */}
-            {/* OR Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add OR gate SVG or image here */}
-              </div>
-              <span className="gate-label">OR Gate</span>
-            </div>
-
-            {/* NOR Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add NOR gate SVG or image here */}
-              </div>
-              <span className="gate-label">NOR Gate</span>
-            </div>
-
-            {/* XOR Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add XOR gate SVG or image here */}
-              </div>
-              <span className="gate-label">XOR Gate</span>
-            </div>
-
-            {/* XNOR Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add XNOR gate SVG or image here */}
-              </div>
-              <span className="gate-label">XNOR Gate</span>
-            </div>
-
-            {/* NOT Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add NOT gate SVG or image here */}
-              </div>
-              <span className="gate-label">NOT Gate</span>
-            </div>
-
-            {/* BUFFER Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add BUFFER gate SVG or image here */}
-              </div>
-              <span className="gate-label">BUFFER Gate</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Input Components Section */}
-        <div className="drawer-section">
-          <button 
-            className="section-title-button"
-            onClick={() => toggleSection('inputComponents')}
-            type="button"
-          >
-            <h3 className="section-title">Input Components</h3>
-            <span className={`section-arrow ${expandedSections.inputComponents ? 'expanded' : ''}`}>
-              ▼
-            </span>
-          </button>
-          
-          <div className={`gates-grid ${expandedSections.inputComponents ? 'expanded' : 'collapsed'}`}>
-            {/* AND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add AND gate SVG or image here */}
-              </div>
-              <span className="gate-label">Toggle Switch</span>
-            </div>
-
-            {/* NAND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add NAND gate SVG or image here */}
-              </div>
-              <span className="gate-label">Push Button</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Output Components Section */}
-        <div className="drawer-section">
-          <button 
-            className="section-title-button"
-            onClick={() => toggleSection('outputComponents')}
-            type="button"
-          >
-            <h3 className="section-title">Output Components</h3>
-            <span className={`section-arrow ${expandedSections.outputComponents ? 'expanded' : ''}`}>
-              ▼
-            </span>
-          </button>
-          
-          <div className={`gates-grid ${expandedSections.outputComponents ? 'expanded' : 'collapsed'}`}>
-            {/* AND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add AND gate SVG or image here */}
-              </div>
-              <span className="gate-label">LED Light</span>
-            </div>
-
-            {/* NAND Gate */}
-            <div className="logic-gate-card">
-              <div className="gate-icon-container">
-                {/* Add NAND gate SVG or image here */}
-              </div>
-              <span className="gate-label">RGB LED</span>
-            </div>
-          </div>
-        </div>
+        <LogicGatesSection 
+          expandedSections={expandedSections}
+          toggleSection={toggleSection}
+          handleGateClick={handleGateClick}
+        />
+        <InputComponentsSection 
+          expandedSections={expandedSections}
+          toggleSection={toggleSection}
+          handleGateClick={handleGateClick}
+        />
+        <OutputComponentsSection 
+          expandedSections={expandedSections}
+          toggleSection={toggleSection}
+          handleGateClick={handleGateClick}
+        />
       </div>
     </>
   );
@@ -187,6 +71,7 @@ const LogicGateDrawer = ({ isOpen, onClose }) => {
 LogicGateDrawer.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  addGateNode: PropTypes.func.isRequired,
 };
 
 export default LogicGateDrawer; 
